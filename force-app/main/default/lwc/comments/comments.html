@@ -6,16 +6,31 @@
             <template for:each={comments} for:item="comment">
                 
                 <div key={comment.Id} data-comment-id={comment.Id}>
+                    <!-- <span>{comment.CreatedBy.Name} commented on {comment.LastModifiedDate}</br>
+                        Comment: {comment.Comments__c}</span> -->
                     <div class="slds-grid slds-gutters">
                         <div class="slds-col slds-size_5-of-6">
                           <span>{comment.CreatedBy.Name} commented on {comment.LastModifiedDate}</br>
                             Comment: {comment.Comments__c}</span>
                         </div>
                         <div class="slds-col slds-size_1-of-6">
-                          <span><lightning-button-icon icon-name="utility:down"  size="x-small" style="padding-left: 5%;" alternative-text="View More" class="slds-m-left_xx-small"></lightning-button-icon><br /></span>
+                            <div class="slds-dropdown-trigger">
+                                <button class="slds-button slds-button_icon slds-button_icon-small" aria-haspopup="true" title="Show More">
+                                    <lightning-button-icon icon-name="utility:down" size="x-small"></lightning-button-icon>
+                                </button>
+                                <div class="slds-dropdown slds-dropdown_right">
+                                    <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="0" href="javascript:void(0);" onclick={handleEdit} data-comment-id={comment.Id}>
+                                                Edit
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    
+                        </div>
+                      
                     
                 </div>
             </template>

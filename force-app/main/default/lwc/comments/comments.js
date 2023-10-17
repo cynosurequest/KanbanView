@@ -12,6 +12,7 @@ export default class Comments extends NavigationMixin(LightningElement ){
     cName = ' ';
     commentText = ' '
     LastModifiedDate ;
+    selectedCommentId = null;
 
 
     connectedCallback(){
@@ -40,6 +41,20 @@ export default class Comments extends NavigationMixin(LightningElement ){
         console.log(' get comments error ' + JSON.stringify(error))
     })
     
+
+    }
+
+
+    handleEdit(event) {
+        const commentId = event.currentTarget.dataset.commentId;
+        const selectedComment = this.comments.find(comment => comment.Id === commentId);
+        this.selectedCommentId = commentId;
+        if (selectedComment) {
+            this.cName = selectedComment.Name; // Assuming Comment_Name__c is the API name of the field
+            this.commentText = selectedComment.Comments__c; // Assuming Comments__c is the API name of the field
+            this.showPopUp = true;
+    }
+        
     }
 
     handleComments(event){
@@ -74,6 +89,17 @@ export default class Comments extends NavigationMixin(LightningElement ){
 }
 
     hanleSaveComments(){
+
+        const data = {
+            userStoryId: this.recordId,
+            commentName: this.cName,
+            comments: this.commentText
+        };
+    
+        if (this.selectedCommentId) {
+            // Editing an existing comment
+            data.commentId = this.selectedCommentId;
+        }
         saveComments({userStoryId : this.recordId, commentName : this.cName , comments : this.commentText})
         .then(() => {
             console.log('cname' + this.cName)
@@ -82,6 +108,7 @@ export default class Comments extends NavigationMixin(LightningElement ){
             this.showPopUp = false;
             this.cName = ' '
             this.commentText = ' '
+            this.selectedCommentId = null;
             setTimeout(() => {
             this.getData();
             console.log('refreshed' + JSON.stringify(this.comments))
