@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Assign_Contact_Record_Value</name>
+        <label>Assign Contact Record Value</label>
+        <locationX>314</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Related_Contact.Total_Numbers_Of_Leave_Taken__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.No_of_leave_Days__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Contact_Record</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Leave_Request</name>
+        <label>Check Leave Request</label>
+        <locationX>314</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_Contact_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Contact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Field_In_Leave_Req</targetReference>
+            </connector>
+            <label>If Contact Null</label>
+        </rules>
+        <rules>
+            <name>If_Leave_Approved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Contact_Record_Value</targetReference>
+            </connector>
+            <label>If Leave Approved</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Leave Request Process - Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Leave Request Process - Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Related_Contact</name>
+        <label>Get Related Contact</label>
+        <locationX>314</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Leave_Request</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>User__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Contact_Field_In_Leave_Req</name>
+        <label>Update Contact Field In Leave Req</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <inputAssignments>
+            <field>Contact__c</field>
+            <value>
+                <elementReference>Get_Related_Contact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Contact_Record</name>
+        <label>Update Contact Record</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <inputReference>Get_Related_Contact</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Related_Contact</targetReference>
+        </connector>
+        <object>Leave_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

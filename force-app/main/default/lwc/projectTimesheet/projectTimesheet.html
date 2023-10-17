@@ -1,0 +1,60 @@
+<template>
+  <lightning-card>
+    <div class="tab-container">
+      <div class="scroll-buttons">
+        <button class="scroll-button" onclick={scrollLeft} disabled={isScrollLeftDisabled}>
+          <lightning-icon icon-name="utility:left" size="small"></lightning-icon>
+        </button>
+      </div>
+      <div class="tab-scroll-wrapper">
+        <ul class="tab-list slds-align_absolute-center">
+          <template for:each={visibleWeeks} for:item="week">
+            <li key={week.weekNumber} class="tab " data-week={week.weekNumber} onclick={handleTabClick}>{week.heading}</li>
+          </template>
+        </ul>
+      </div>
+      <div class="scroll-buttons">
+        <button class="scroll-button" onclick={scrollRight} disabled={isScrollRightDisabled}>
+          <lightning-icon icon-name="utility:right" size="small"></lightning-icon>
+        </button>
+      </div>
+    </div>
+
+
+
+    <template for:each={projectAssignments} for:item="assignment">
+      <div key={assignment.Id} class="project-details">
+        <div class="slds-grid">
+          <div class="slds-col slds-size_1-of-12 slds-p-around_medium">
+            <h1 class="project-name">{assignment.projectName}</h1>
+          </div>
+          <div class="slds-col slds-size_9-of-12">
+            <div class="week-details" if:true={selectedWeek}>
+              <h2 class="week-heading"></h2>
+              <div class="week-content">
+                <div class="slds-grid slds-wrap">
+                  <template for:each={assignment.currentWeek} for:item="day">
+                    <div key={day.date} class="day-column slds-col">
+                      <div class="day-heading">{day.day}</div>
+                      <div class="day-date">{day.date}
+                        <lightning-input type="number" value={day.workHours} onchange={handleChange} data-project-id={assignment.projectId} data-date={day.date} disabled={day.isBetween} class="slds-input_small input-field"></lightning-input>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+          <div class="slds-col slds-size_2-of-12 slds-p-around_small total-work-hours"> Total Work Hours 
+            <br> </br>
+            <lightning-input value={assignment.totalWorkHours} disabled></lightning-input>
+            </div>
+        </div>
+      </div>
+    </template>
+    <div class="save-button slds-align_absolute-center">
+      <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+    </div>
+  </lightning-card>
+</template>

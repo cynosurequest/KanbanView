@@ -1,0 +1,65 @@
+.input-spacing {
+    margin-right: 2px; 
+  }
+.colorChange{
+    font-size: larger;
+    font-weight: bold;
+    color: darkblue;
+    font-style: regular;
+}
+
+.myheader {
+  background-color: tan;
+  color: darkblue;
+}
+
+
+.tableFixHead {
+  overflow: auto;
+  height: 250px;
+}
+
+.tableFixHead table {
+  border-collapse: collapse;
+  width: 100%;
+  
+}
+
+.tableFixHead th {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: rgb(235, 227, 215);
+}
+
+.clear-button {
+  margin-top: 50%;
+  align-items: center;
+}
+
+.save-button-container {
+  display: flex;
+  top: 100%;
+  padding: 50px;
+  justify-content: center;
+}
+
+lightning-button.button {
+	--sds-c-button-brand-color-background: #bb00ff;
+    --sds-c-button-text-color: #f4f7f9;
+}
+
+.my-input-field {
+  width: 120px;
+}
+
+.bodyColor{
+  background-color: rgb(235, 227, 215);
+}
+.tab-color{
+  background-color: rgb(235, 227, 215);
+}
+
+input:disabled {
+  background-color: red;
+}

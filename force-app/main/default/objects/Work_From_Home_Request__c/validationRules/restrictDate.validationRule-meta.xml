@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>restrictDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(MONTH( DATEVALUE( Start_Date__c ) ) &lt; MONTH(TODAY()),MONTH( DATEVALUE( End_Date__c ) ) &lt; MONTH(TODAY()))</errorConditionFormula>
+    <errorMessage>You can&apos;t apply WFH request for previous months</errorMessage>
+</ValidationRule>

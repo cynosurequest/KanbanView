@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>restrictStartTimeLimit</fullName>
+    <active>true</active>
+    <errorConditionFormula>TIMEVALUE(Start_Date__c) &lt; TIMEVALUE(&quot;04:30:00.000&quot;) || TIMEVALUE(Start_Date__c) &gt; TIMEVALUE(&quot;12:30:00.000&quot;)</errorConditionFormula>
+    <errorMessage>start time must be 10:00 AM till 06:00PM</errorMessage>
+</ValidationRule>

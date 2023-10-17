@@ -1,0 +1,53 @@
+<template>
+    
+        <lightning-tabset variant="scoped"  >
+            <template  for:each={months} for:item="month">
+                <!-- <lightning-tab key={month.label} label={month.label} onactive={handleTabActive} onchange={handleTabChange}> -->
+                <lightning-tab  key={month.label} label={month.label} onactive={handleTabActive} class="tab-color">
+                    
+                    <div class="slds-scrollable_y" style="height:20rem;width:100%">
+                    <table class="tableFixHead">
+                        <thead>
+                            <tr>
+                                <th class="myheader">Date</th>
+                                <th class="myheader">Start Time</th>
+                                <th class="myheader">Break Start</th>
+                                <th class="myheader">Break End</th>
+                                <th class="myheader">Lunch Start</th>
+                                <th class="myheader">Lunch  End</th>
+                                <th class="myheader">Break Start</th>
+                                <th class="myheader">Break End</th>
+                                <th class="myheader">End Time</th>
+                                <th class="myheader">Over Time Hours</th>
+                                <th class="colorChange" >Total work Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bodyColor">
+                            <template for:each={activeMonthDays} for:item="day">
+                                <tr key={day.date}>
+                                    <td > {day.date} </td>
+                                    <td ><lightning-input type="time" name="startTime" value={day.startTime}   data-day={day.date} class="input-spacing, my-input-field , disabled" onchange={handleChange} disabled={day.disabled}></lightning-input ></td>
+                                    <td ><lightning-input type="time" name="morningBreakStart" value={day.morningBreakStart} min={day.startMin} data-day={day.date} class="input-spacing, my-input-field , disabled" onchange={handleChange} disabled={day.disabled}></lightning-input ></td>
+                                    <td ><lightning-input type="time" name="morningBreakEnd" value={day.morningBreakEnd} min={day.MBreakStartMin} data-day={day.date} class="input-spacing, my-input-field , disabled" onchange={handleChange} disabled={day.disabled}></lightning-input ></td>
+                                    <td ><lightning-input type="time" name="lunchStart" value={day.lunchStart} min={day.MBreakEndMin} data-day={day.date} class="input-spacing, my-input-field" onchange={handleChange} disabled={day.disabled}></lightning-input></td>
+                                    <td><lightning-input type="time" name="lunchEnd" value={day.lunchEnd} min={day.lunchStartMin} data-day={day.date} class="input-spacing, my-input-field" onchange={handleChange} disabled={day.disabled}></lightning-input></td>
+                                    <td ><lightning-input type="time" name="eveningBreakStart" value={day.eveningBreakStart} min={day.lunchEndMin} data-day={day.date} class="input-spacing, my-input-field , disabled" onchange={handleChange} disabled={day.disabled}></lightning-input ></td>
+                                    <td ><lightning-input type="time" name="eveningBreakEnd" value={day.eveningBreakEnd} min={day.EBreakStartMin} data-day={day.date} class="input-spacing, my-input-field , disabled" onchange={handleChange} disabled={day.disabled}></lightning-input ></td>
+                                    <td><lightning-input type="time" name="endTime" value={day.endTime} min={day.EBreakEndMin} data-day={day.date} class="input-spacing, my-input-field" onchange={handleChange} disabled={day.disabled}></lightning-input></td>
+                                    <td><lightning-input type="number" name="overTimeHours" value={day.overTimeHours} class="input-spacing, my-input-field" data-day={day.date} onchange={handleChange} disabled={day.disabled}></lightning-input></td>
+                                    <td><lightning-input type="number" name="totalWorkHours" value={day.totalWorkHours} class="input-spacing, my-input-field" data-day={day.date} disabled= 'true' ></lightning-input></td>
+                              
+                                    <td><br/><lightning-button class="clear-button" variant="brand" label="Clear" data-day={day.date} onclick={handleClear}></lightning-button></td> 
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    </div>
+                </lightning-tab>
+            </template>
+        </lightning-tabset>
+        <br/>
+        <div style= "padding-left: 650px;">
+        <lightning-button  variant="brand" label="Save" title="Primary action" onclick={handleSave}></lightning-button>   
+    </div>
+</template>
