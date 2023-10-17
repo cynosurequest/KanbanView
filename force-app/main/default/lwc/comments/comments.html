@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Comments" >
+        <lightning-button label="New" slot="actions" onclick={handleNewComments}></lightning-button>
+        
+        <div class="slds-m-around_medium">
+            <template for:each={comments} for:item="comment">
+                
+                <div key={comment.Id} data-comment-id={comment.Id}>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_5-of-6">
+                          <span>{comment.CreatedBy.Name} commented on {comment.LastModifiedDate}</br>
+                            Comment: {comment.Comments__c}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-6">
+                          <span><lightning-button-icon icon-name="utility:down"  size="x-small" style="padding-left: 5%;" alternative-text="View More" class="slds-m-left_xx-small"></lightning-button-icon><br /></span>
+                        </div>
+                      </div>
+                    
+                    
+                </div>
+            </template>
+
+        </div>
+
+    </lightning-card>
+    <template if:true={showPopUp}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">New Comment</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-input label="Comment Name" name="cName" type="text" value={cName} onchange={handleChange}></lightning-input>
+                    <lightning-input label="Comment" type="text" name="comment Text" value={commentText} onchange={handleChange}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Close" variant="brand" onclick={closePopUp}></lightning-button>
+                    <lightning-button style="padding-left: 3%;" label="Save" variant="brand" onclick={hanleSaveComments}></lightning-button>
+                </footer>
+                
+            </div>
+        </section>
+</template>
+</template>

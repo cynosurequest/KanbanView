@@ -1,0 +1,24 @@
+.card_wrapper{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    background: #fff;
+}
+.column_heading{
+    padding: 0.5rem 0.25rem;
+    font-size: 16px;
+    background: #000000;
+    color: rgb(255, 255, 255);
+    margin-bottom: 1rem;
+
+    border-radius: 10px;
+}
+.stageContainer{
+    float:left;
+    
+}
+
+.calcWidth {
+    --len: calc(100% + 1);
+    width: 15%
+}
