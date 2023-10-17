@@ -6,17 +6,16 @@
             <template for:each={comments} for:item="comment">
                 
                 <div key={comment.Id} data-comment-id={comment.Id}>
-                    <!-- <span>{comment.CreatedBy.Name} commented on {comment.LastModifiedDate}</br>
-                        Comment: {comment.Comments__c}</span> -->
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_5-of-6">
+                    
+                    <!-- <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_5-of-6"> -->
                           <span>{comment.CreatedBy.Name} commented on {comment.LastModifiedDate}</br>
                             Comment: {comment.Comments__c}</span>
-                        </div>
+                        <!-- </div>
                         <div class="slds-col slds-size_1-of-6">
                             <div class="slds-dropdown-trigger">
                                 <button class="slds-button slds-button_icon slds-button_icon-small" aria-haspopup="true" title="Show More">
-                                    <lightning-button-icon icon-name="utility:down" size="x-small"></lightning-button-icon>
+                                    <lightning-button-icon icon-name="utility:down" size="xx-small"></lightning-button-icon>
                                 </button>
                                 <div class="slds-dropdown slds-dropdown_right">
                                     <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
@@ -28,7 +27,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         </div>
                       
                     
